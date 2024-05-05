@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, default: mongoose } = require("mongoose");
 
 const userSchema = new Schema({
   id: {
@@ -16,10 +16,25 @@ const userSchema = new Schema({
   },
   hasCOPD: {
     type: Boolean,
-    required: true,
+    default: false,
   },
-  copdData: {
-    type: Array,
-    required: false,
-  },
+  copdHistory:[
+    {
+      gasConcentration: {
+        type: Number,
+      },
+      gasType: {
+        type: String,
+      },
+      nh3Concentration:{
+        type: Number,
+      },
+      date: {
+        type: Date,
+      }
+    }
+  ]
 });
+
+const userModel = mongoose.model("User", userSchema);
+module.exports = userModel;
